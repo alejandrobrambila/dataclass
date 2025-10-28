@@ -1,6 +1,6 @@
 ### 1.2.5 Exercises
 ## 1. How many rows are in penguins? How many columns?
-i
+
 library(tidyverse)
 library(palmerpenguins)
 str(penguins)
