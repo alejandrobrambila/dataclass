@@ -75,6 +75,13 @@ ggplot(
 # What might be a better choice of geom?
       #geom_bar()
 
+#test:
+ggplot(
+  data = penguins,
+  mapping = aes(x = species, y = bill_depth_mm)
+) +
+  geom_boxplot()+geom_jitter(width=.2, size=.5)
+
 ## 5. Why does the following give an error and how would you fix it?----
 
 ggplot(data = penguins) + 
@@ -95,7 +102,7 @@ ggplot(
   data = penguins,
   mapping = aes(x = body_mass_g, y = flipper_length_mm)
 ) +
-  geom_point(
+  geom_point(na.rm = F
   )
 ## 7. Add the following caption to the plot you made in the previous exercise: “Data come from the palmerpenguins package.”---- 
 # Hint: Take a look at the documentation for labs().
@@ -205,8 +212,8 @@ ggplot(mpg, aes(x = hwy, y = hwy, color=hwy)) +
 
 
 ## 5. Make a scatterplot of bill_depth_mm vs. bill_length_mm and color the points by species. ----
-ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm, color=species)) + 
-  geom_point()
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) + 
+  geom_point(aes( color=species))+geom_smooth(method=lm)
 
 ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) + 
   geom_point() +
