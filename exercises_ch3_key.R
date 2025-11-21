@@ -1,0 +1,75 @@
+# 3.2.5 Exercises
+
+##1. In a single pipeline for each condition, find all flights that meet the condition:
+
+library(nycflights13)  
+library(tidyverse)
+
+### Had an arrival delay of two or more hours
+filter(flights, arr_delay>=120)|>
+
+  filter(dest=="IAH"|dest=="HOU")|> ### Flew to Houston (IAH or HOU)
+
+### Were operated by United, American, or Delta
+  filter(carrier=="UA"|carrier=="AA"|carrier=="DL")|>
+
+### Departed in summer (July, August, and September)
+  filter(month==7|month==8|month==9)|>
+
+### Arrived more than two hours late but didn’t leave late
+  filter(flights, arr_delay>120&dep_delay<1)
+
+### Were delayed by at least an hour, but made up over 30 minutes in flight
+filter(flights, dep_delay>60&dep_delay-arr_delay>30)
+
+
+
+## 2. Sort flights to find the flights with the longest departure delays. Find the flights that left earliest in the morning.
+
+## 3. Sort flights to find the fastest flights. (Hint: Try including a math calculation inside of your function.)
+
+## 4. Was there a flight on every day of 2013?
+  
+distinct(flights, month, day)
+
+### 5. Which flights traveled the farthest distance? Which traveled the least distance?
+
+
+  
+### 6. Does it matter what order you used filter() and arrange() if you’re using both? Why/why not? Think about the results and how much work the functions would have to do.
+
+
+# 3.3.5 Exercises
+
+## 1. Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
+  
+## 2. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
+
+
+## 3. What happens if you specify the name of the same variable multiple times in a select() call?
+  
+
+## 4.  What does the any_of() function do? Why might it be helpful in conjunction with this vector?
+  
+  variables <- c("year", "month", "day", "dep_delay", "arr_delay")
+
+  
+## 5. Does the result of running the following code surprise you? How do the select helpers deal with upper and lower case by default? How can you change that default?
+  
+  flights |> select(contains("TIME"))
+
+  
+## 6. Rename air_time to air_time_min to indicate units of measurement and move it to the beginning of the data frame.
+
+  
+## 7. Why doesn’t the following work, and what does the error mean?
+  
+  flights |> 
+  select(tailnum) |> 
+  arrange(arr_delay)
+  
+#> Error in `arrange()`:
+#> ℹ In argument: `..1 = arr_delay`.
+#> Caused by error:
+#> ! object 'arr_delay' not found
+
