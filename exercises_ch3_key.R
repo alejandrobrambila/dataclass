@@ -1,7 +1,6 @@
-# 3.2.5 Exercises
+# 3.2.5 Exercises ----
 
 ##1. In a single pipeline for each condition, find all flights that meet the condition:
-
 library(nycflights13)  
 library(tidyverse)
 
@@ -39,11 +38,13 @@ distinct(flights, month, day)
 ### 6. Does it matter what order you used filter() and arrange() if you’re using both? Why/why not? Think about the results and how much work the functions would have to do.
 
 
-# 3.3.5 Exercises
+# 3.3.5 Exercises ----
 
-## 1. Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
+## 1. Compare dep_time, sched_dep_time, and dep_delay. 
+## How would you expect those three numbers to be related?
   
-## 2. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
+## 2. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay 
+## from flights.
 
 
 ## 3. What happens if you specify the name of the same variable multiple times in a select() call?
@@ -54,12 +55,14 @@ distinct(flights, month, day)
   variables <- c("year", "month", "day", "dep_delay", "arr_delay")
 
   
-## 5. Does the result of running the following code surprise you? How do the select helpers deal with upper and lower case by default? How can you change that default?
+## 5. Does the result of running the following code surprise you? 
+## How do the select helpers deal with upper and lower case by default? How can you change that default?
   
   flights |> select(contains("TIME"))
 
   
-## 6. Rename air_time to air_time_min to indicate units of measurement and move it to the beginning of the data frame.
+## 6. Rename air_time to air_time_min to indicate units of measurement 
+  ## and move it to the beginning of the data frame.
 
   
 ## 7. Why doesn’t the following work, and what does the error mean?
@@ -73,3 +76,68 @@ distinct(flights, month, day)
 #> Caused by error:
 #> ! object 'arr_delay' not found
 
+# 3.5.7 Exercises ----
+  
+## 1. Which carrier has the worst average delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about flights |> group_by(carrier, dest) |> summarize(n()))
+  
+## 2.   Find the flights that are most delayed upon departure to each destination.
+  
+## 3.   How do delays vary over the course of the day? Illustrate your answer with a plot.
+  
+## 4.   What happens if you supply a negative n to slice_min() and friends?
+    
+## 5.   Explain what count() does in terms of the dplyr verbs you just learned. What does the sort argument to count() do?
+    
+## 6. Suppose we have the following tiny data frame:
+    
+    df <- tibble(
+      x = 1:5,
+      y = c("a", "b", "a", "a", "b"),
+      z = c("K", "K", "L", "L", "K")
+    )
+  
+  ###. Write down what you think the output will look like, 
+  ###. then check if you were correct, ...
+ 
+   ### a. ...and describe what group_by() does.
+  
+  df |>
+    group_by(y)
+  
+  ### b. ... and describe what arrange() does. 
+  ###. Also, comment on how it’s different from the group_by() in part (a).
+  
+  df |>
+    arrange(y)
+  
+  ### c. ... and describe what the pipeline does.
+  
+  df |>
+    group_by(y) |>
+    summarize(mean_x = mean(x))
+  
+  ### d.... and describe what the pipeline does. Then, comment on what the message says.
+  
+  df |>
+    group_by(y, z) |>
+    summarize(mean_x = mean(x))
+  
+  ### e. ... and describe what the pipeline does. 
+  ###. How is the output different from the one in part (d)?
+    
+    df |>
+    group_by(y, z) |>
+    summarize(mean_x = mean(x), .groups = "drop")
+  
+  ### f. ... and describe what each pipeline does. 
+  ###.  How are the outputs of the two pipelines different?
+    
+    df |>
+    group_by(y, z) |>
+    summarize(mean_x = mean(x))
+  
+  df |>
+    group_by(y, z) |>
+    mutate(mean_x = mean(x))
+  
+  
